@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>School Register</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .wrapper {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        background-color: #45a049;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      header h1 {
+        margin: 0;
+        color: white;
+      }
+
+      header nav {
+        display: flex;
+      }
+
+      header nav a {
+        color: white;
+        text-decoration: none;
+        margin-right: 2rem;
+        font-size: 1.3rem;
+        font-weight: normal;
+      }
+
+      main {
+        flex: 1;
+        padding: 2rem;
+      }
+
+      footer {
+        background-color: #45a049;
+        padding: 1rem;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+      }
+      footer a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+      }
+      .baseh1 {
+        font-size: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="baseh1">Welcome {{ current_user.name }}!</h1>
+        <nav>
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('manage_classrooms') }}">Classroom</a>
+
+          <a href="{{ url_for('logout') }}">Log out</a>
+        </nav>
+      </header>
+
+      <main>{% block content %} {% endblock %}</main>
+
+      <footer>
+        School Register. Created by <a href="https://itisws.pl">ITisws.pl</a>
+      </footer>
+    </div>
+  </body>
+</html>

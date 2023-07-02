@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  table {
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 1rem;
+    border: 1px solid black;
+  }
+
+  th {
+    background-color: #ccc;
+    border: 1px solid black;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #e5e5e5;
+  }
+
+  a {
+    color: blue;
+    text-decoration: none;
+    margin-left: 5px;
+  }
+
+  input[type="button"] {
+    text-align: center;
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const attendanceButtons = document.querySelectorAll(".attendance-button");
+
+    attendanceButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        if (this.textContent === "Present") {
+          this.textContent = "Absent";
+          this.value = "False";
+        } else {
+          this.textContent = "Present";
+          this.value = "True";
+        }
+      });
+    });
+
+    const saveAttendanceButton = document.getElementById(
+      "save-attendance-button"
+    );
+    saveAttendanceButton.addEventListener("click", function () {
+      document.getElementById("attendance-form").submit();
+    });
+  });
+</script>
+
+<h1>{{ lesson.name }}</h1>
+
+<form
+  id="attendance-form"
+  method="POST"
+  action="{{ url_for('attendance', classroom_id=classroom.id, lesson_id=lesson.id) }}"
+>
+  <table>
+    <thead>
+      <tr>
+        <th>Surname and name</th>
+        <th>Attendance</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in classroom.users %}
+      <tr>
+        <td>{{ user.surname }} {{ user.name }}</td>
+        <td>
+          <input type="hidden" name="user_id[]" value="{{ user.id }}" />
+          <button type="button" class="attendance-button" value="True">
+            Present
+          </button>
+        </td>
+        <td>
+          {% for attendance in attendances %} {% if attendance.user_id ==
+          user.id %} {{ attendance.date.strftime('%Y-%m-%d %H:%M:%S') }} {%
+          endif %} {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <input type="hidden" name="lesson_id" value="{{ lesson.id }}" />
+
+  <input type="button" id="save-attendance-button" value="Save Attendance" />
+</form>
+
+{% endblock %}

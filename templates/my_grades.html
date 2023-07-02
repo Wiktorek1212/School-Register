@@ -1,0 +1,68 @@
+{% extends 'baseuser.html' %} {% block content %}
+<style>
+  table {
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 1rem;
+    border: 1px solid black;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid black;
+    background-color: #cfcdcd;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #e5e5e5;
+  }
+
+  a {
+    color: blue;
+    text-decoration: none;
+    margin-left: 5px;
+  }
+
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+<h1>My Grades</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Lesson</th>
+      <th>Grade</th>
+      <th>Average Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for subject, grades_list in grades.items() %}
+    <tr>
+      <td>{{ subject }}</td>
+      <td>{{ grades_list|join(', ') }}</td>
+      <td>{{ averages[subject] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

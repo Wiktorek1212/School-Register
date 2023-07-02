@@ -1,0 +1,35 @@
+<form method="POST">
+  <label for="day_of_week">Dzień tygodnia:</label>
+  <input type="text" id="day_of_week" name="day_of_week" /><br />
+
+  <div id="lessons">
+    <div class="lesson">
+      <label for="name">Nazwa lekcji:</label>
+      <input type="text" class="name" name="name" /><br />
+      <label for="start_time">Czas rozpoczęcia:</label>
+      <input type="time" class="start_time" name="start_time" /><br />
+      <label for="end_time">Czas zakończenia:</label>
+      <input type="time" class="end_time" name="end_time" /><br />
+    </div>
+  </div>
+
+  <button type="button" id="add-lesson">Dodaj kolejną lekcję</button>
+  <input type="submit" value="Zapisz plan lekcji" />
+</form>
+
+<script>
+  document.getElementById("add-lesson").addEventListener("click", function () {
+    var lessonsDiv = document.getElementById("lessons");
+    var newLessonDiv = document.createElement("div");
+    newLessonDiv.className = "lesson";
+    newLessonDiv.innerHTML = `
+          <label for="name">Nazwa lekcji:</label>
+          <input type="text" class="name" name="name" /><br />
+          <label for="start_time">Czas rozpoczęcia:</label>
+          <input type="time" class="start_time" name="start_time" /><br />
+          <label for="end_time">Czas zakończenia:</label>
+          <input type="time" class="end_time" name="end_time" /><br />
+      `;
+    lessonsDiv.appendChild(newLessonDiv);
+  });
+</script>

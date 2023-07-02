@@ -1,0 +1,64 @@
+{% extends 'baseuser.html' %} {% block content %}
+<style>
+  .lessons-table {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .lessons-table td {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+  }
+
+  .lessons-table th {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #cfcdcd;
+  }
+
+  .lessons-table td {
+    background-color: rgb(218, 218, 218);
+    font-weight: bold;
+  }
+
+  .lessons-table tr:nth-child(even) td {
+    background-color: #e6e6e6;
+  }
+
+  .lessons-table tr:nth-child(odd) td {
+    background-color: #fff;
+  }
+</style>
+
+<h1 style="text-align: center">My Lessons</h1>
+
+{% if day_lessons %} {% for day, day_lessons in day_lessons.items() %}
+<h2 style="text-align: center">{{ day }}</h2>
+<table class="lessons-table">
+  <thead>
+    <tr>
+      <th>Lesson</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for lesson in day_lessons %}
+    <tr>
+      <td>{{ lesson.name }}</td>
+      <td>{{ lesson.start_time }}</td>
+      <td>{{ lesson.end_time }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %} {% else %}
+<p>No lessons found.</p>
+{% endif %} {% endblock %}

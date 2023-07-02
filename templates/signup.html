@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>School Register</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      form {
+        width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        background-color: #45a049;
+        padding: 1rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      header h1 {
+        margin-right: 0;
+        color: white;
+      }
+
+      header nav {
+        display: flex;
+      }
+
+      header nav a {
+        color: white;
+        text-decoration: none;
+        margin-right: 2rem;
+        font-size: 1.3rem;
+        font-weight: normal;
+      }
+
+      main {
+        flex: 1;
+        padding: 2rem;
+      }
+
+      footer {
+        background-color: #45a049;
+        padding: 1rem;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        margin-top: auto;
+      }
+      footer a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+      }
+      .baseh1 {
+        font-size: 1.5rem;
+      }
+
+      h1,
+      h3 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <a href="{{ url_for('home') }}">Home</a>
+          <a href="{{ url_for('login') }}">Log in</a>
+          <a href="{{ url_for('signup') }}">Sign in</a>
+        </nav>
+      </header>
+      <h1>Registration</h1>
+      <form method="POST">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="text" name="surname" placeholder="Your surname" required />
+        <input type="text" name="username" placeholder="User Name" required />
+        <input type="email" name="email" placeholder="E-mail" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Sign up!</button>
+      </form>
+      <footer>
+        School Register. Created by <a href="https://itisws.pl">ITisws.pl</a>
+      </footer>
+    </div>
+  </body>
+</html>

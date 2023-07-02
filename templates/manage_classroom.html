@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Panel admina</title>
+  </head>
+  <body>
+    <h1>Witaj {{ current_user.username }}!</h1>
+    <a href="{{ url_for('logout') }}">Wyloguj się</a>
+    <a href="{{ url_for('manage_grades') }}">Zarządzaj ocenami</a>
+    <a href="{{ url_for('manage_classrooms') }}">Zarządzaj klasami</a>
+    <br />
+    <br />
+    <br />
+
+    <h2>Klasy</h2>
+    {% for classroom in classrooms %}
+    <h3>{{ classroom.name }}</h3>
+    <a href="{{ url_for('manage_classroom', classroom_id=classroom.id) }}"
+      >Zarządzaj uczniami w klasie</a
+    >
+    {% endfor %}
+
+    <h2>Users</h2>
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>E-mail</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <!-- Formularz dodawania oceny -->
+<h2>Add Grade to Student {{ student.username }}</h2>
+<form method="POST" action="{{ url_for('add_grade', classroom_id=classroom.id, student_id=student.id) }}">
+    <label for="lesson_id">Lesson:</label>
+    <select id="lesson_id" name="lesson_id">
+        {% for lesson in classroom.lessons %}
+            <option value="{{ lesson.id }}">{{ lesson.name }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="grade">Grade:</label>
+    <input type="number" id="grade" name="grade" min="1" max="6" step="0.5" required />
+    <br>
+    <input type="submit" value="Add Grade" />
+</form>
+
+<!-- Formularz aktualizacji oceny -->
+<h2>Update Grade for Student {{ student.username }}</h2>
+{% for grade in student.grades %}
+    <form method="POST" action="{{ url_for('update_grade', classroom_id=classroom.id, student_id=student.id, grade_id=grade.id) }}">
+        <label for="new_grade">New Grade for {{ grade.lesson.name }}:</label>
+        <input type="number" id="new_grade" name="new_grade" min="1" max="6" step="0.5" required />
+        <input type="submit" value="Update Grade" />
+    </form>
+{% endfor %}
+
+  </body>
+</html>

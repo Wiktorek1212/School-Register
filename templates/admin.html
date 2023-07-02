@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+
+   
+    <style>
+      .users {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .users h2 {
+        margin-top: 1;
+      }
+
+      .users table {
+        margin: auto;
+        border-collapse: collapse;
+        text-align: center;
+      }
+
+      .users td {
+        border: 1px solid black;
+        padding: 1rem;
+      }
+
+      .users tr:nth-child(even) td {
+        border-color: rgb(0, 0, 0);
+      }
+      .users tr:nth-child(odd) td {
+        background-color: rgb(218, 218, 218);
+      }
+
+      .users tr:nth-child(even) td {
+        background-color: white;
+      }
+      .delete {
+        background-color: red;
+        border: none;
+        padding: 0.4rem;
+        border-radius: 3px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="users">
+      <h2>Users</h2>
+      <table>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>E-mail</th>
+          <th>Class</th>
+          <th>Actions</th>
+        </tr>
+        {% for user in users %} {% if not user.is_admin %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.surname }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            {{ user.classroom.name if user.classroom else 'No classroom' }}
+          </td>
+          <td>
+            <form
+              action="{{ url_for('admin_delete_user', user_id=user.id) }}"
+              method="POST"
+              onsubmit="return confirmDelete('{{ user.username }}')"
+            >
+              <button class="delete" type="submit">Remove user</button>
+            </form>
+          </td>
+        </tr>
+        {% endif %} {% endfor %}
+      </table>
+    </div>
+    
+    <script>
+      function confirmDelete(username) {
+        return confirm(
+          "Are you sure you want to delete user: " + username + "?"
+        );
+      }
+    </script>
+
+{% endblock %}

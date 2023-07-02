@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manage Grades</title>
+  </head>
+  <body>
+    <h1>Manage Grades</h1>
+
+    <ul>
+      {% for user in users %}
+      <li>
+        Username: {{ user.username }}
+        <form
+          method="POST"
+          action="{{ url_for('add_grade', user_id=user.id) }}"
+        >
+          <label for="grade">Add Grade:</label>
+          <input type="number" step="0.01" id="grade" name="grade" required />
+          <button type="submit">Add Grade</button>
+        </form>
+        <ul>
+          {% for grade in user.grades %}
+          <li>
+            Grade: {{ grade.grade }}
+            <form
+              method="POST"
+              action="{{ url_for('delete_grade', grade_id=grade.id) }}"
+            >
+              <button type="submit">Delete</button>
+            </form>
+            <a href="{{ url_for('edit_grade', grade_id=grade.id) }}">Edit</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </body>
+</html>

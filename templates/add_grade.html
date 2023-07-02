@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  table {
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 1rem;
+    border: 1px solid black;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid black;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #e5e5e5;
+  }
+
+  a {
+    color: blue;
+    text-decoration: none;
+    margin-left: 5px;
+  }
+
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+<script>
+  function editGrade(classroomId, lessonId, gradeId, currentValue) {
+    const newValue = prompt("Podaj nową ocenę:", currentValue);
+    if (newValue === null || newValue === "") {
+      return;
+    }
+    const url = `/classrooms/${classroomId}/lessons/${lessonId}/grades/${gradeId}/edit`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `new_grade_value=${newValue}`,
+    }).then((response) => {
+      if (response.ok) {
+        location.reload();
+      } else {
+        alert("Nie udało się zaktualizować oceny.");
+      }
+    });
+  }
+</script>
+
+<h1>{{ lesson.name }}</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Surname and name</th>
+      <th>Grades</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in classroom.users %}
+    <tr>
+      <td>{{ user.surname }} {{ user.name }}</td>
+      <td>
+        {% for grade in grades %} {% if grade.user_id == user.id %}
+        <span
+          onclick="editGrade({{ classroom.id }}, {{ lesson.id }}, {{ grade.id }}, {{ grade.value }})"
+        >
+          {{ grade.value }}
+        </span>
+        {% endif %} {% endfor %}
+      </td>
+      <td>
+        <form
+          method="POST"
+          action="{{ url_for('add_grade', classroom_id=classroom.id, lesson_id=lesson.id) }}"
+        >
+          <input type="hidden" name="user_id" value="{{ user.id }}" />
+          <input
+            type="number"
+            id="grade_value"
+            name="grade_value"
+            min="1"
+            max="6"
+          />
+          <input type="submit" value="Dodaj ocenę" />
+        </form>
+      </td>
+    </tr>
+    {% if user.id == user_id %}
+    <tr>
+      <td colspan="3">
+        <form
+          method="POST"
+          action="{{ url_for('add_grade', classroom_id=classroom.id, lesson_id=lesson.id) }}"
+        >
+          <input type="hidden" name="user_id" value="{{ user.id }}" />
+          <input
+            type="number"
+            id="grade_value"
+            name="grade_value"
+            min="1"
+            max="6"
+          />
+          <input type="submit" value="Dodaj ocenę" />
+        </form>
+      </td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classroom</title>
+  </head>
+  <body>
+    {% extends "base.html" %} {% block content %}
+    <div class="container">
+      <h2>Dodaj użytkownika do klasy</h2>
+      <form method="POST" action="{{ url_for('add_user_to_classroom') }}">
+        <div class="form-group">
+          <label for="user_id">ID Użytkownika:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="user_id"
+            name="user_id"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="classroom_id">ID Klasy:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="classroom_id"
+            name="classroom_id"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Dodaj Użytkownika do Klasy
+        </button>
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>
