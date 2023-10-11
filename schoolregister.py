@@ -29,8 +29,8 @@ db = SQLAlchemy(app)
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'WikingGym@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vecdqtoerqohryvu'
+app.config['MAIL_USERNAME'] = 'your_mail'
+app.config['MAIL_PASSWORD'] = 'your_password'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
