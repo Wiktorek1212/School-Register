@@ -1,7 +1,18 @@
 # School-Register
 
-School student management app. The administrator can add/change grades, enter attendance for students for a specific day and lesson. Admin can set lesson, add students to classes, manage users.
-
-The student must first register, he must confirm his email address in his mail. Then the administrator can add him to a specific class, and then the student can check his grades, schedule or attendance.
-
-Application written with Python, Flask, Jinja2, HTML, CSS, JavaScript.
+- A dedicated school student management application tailored for efficiently tracking student progress and attendance.
+- Administrators have comprehensive control, enabling them to:
+  - Input or modify grades for individual students.
+  - Register student attendance for specific dates and lessons.
+  - Define and schedule lessons.
+  - Enroll students in designated classes.
+  - Manage user accounts, ensuring the right access and permissions.
+- Students embark on their journey with the platform by first registering. To enhance security and ensure authenticity, they must validate their registration through an email confirmation.
+- Post-confirmation, the administrator assigns the student to a specific class. Once assigned, students gain the ability to:
+  - Access and review their academic grades.
+  - View their class schedule.
+  - Monitor their attendance record.
+- From a technical perspective, the application is crafted using:
+  - Python and Flask for the backend operations.
+  - Jinja2 for templating.
+  - HTML, CSS, and JavaScript formulating the frontend structure and interactivity.
